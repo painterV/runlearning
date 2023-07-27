@@ -1,0 +1,19 @@
+Dear Hiring Manager,
+
+I am writing to express my interest in the position of Senior Engineer - Cloud Residency at Slalom, as advertised on [source of job posting]. With my solid experience in software engineering and passion for cloud technologies, I believe I would be a valuable addition to your team.
+
+The AWS Cloud Residency Program offered by Slalom resonates strongly with my career aspirations. I am eager to develop into a world-class cloud professional and leader, and I believe that Slalom's program can provide me with the right opportunities and guidance to achieve that goal. The prospect of working with leading cloud experts, supporting global customers, and accelerating my professional growth is truly exciting to me. Furthermore, I am eager to build a strong community with fellow residents and contribute to in-demand technical cloud skills.
+
+Having researched Slalom extensively, I am impressed by the company's partnership with AWS and its involvement in addressing challenging and interesting customer problems. I am confident that working on your industry-leading cloud transformation framework will provide me with hands-on experience in progressive technology platforms, further enhancing my skills as an AWS professional.
+
+Throughout my career, I have collaborated with diverse teams to co-create custom software and cloud products that drive digital transformation. As a software engineer, I have been dedicated to building secure, scalable, and high-quality solutions using modern tools and frameworks. I am well-versed in Agile practices and have a strong understanding of emerging technologies in the cloud ecosystem, such as React, Angular, Node, and AWS. My ability to align with project teams, contribute to the software stack, and automate procedures has been key in delivering successful outcomes.
+
+I bring not only technical expertise but also a collaborative mindset and a passion for continuous learning. I thrive in an environment where I can listen and observe client needs, apply my problem-solving skills, and contribute to the growth of the team. With attention to detail and a focus on delivering exceptional results, I am committed to upholding Slalom's values of humility, curiosity, and excellence.
+
+I am excited about the opportunity to join Slalom and contribute to its purpose-led approach of helping companies tackle ambitious projects and drive digital transformation. I am confident that my skills and passion align well with the goals and values of Slalom. I look forward to discussing how my qualifications and experience can support your team's objectives.
+
+Thank you for considering my application. I have attached my resume for your review. I am available for an interview at your convenience. Please feel free to contact me via email at [Your Email Address] or phone at [Your Phone Number].
+
+Thank you for your time and consideration.
+
+Sincerely,
