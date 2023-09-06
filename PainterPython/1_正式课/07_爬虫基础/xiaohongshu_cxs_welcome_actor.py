@@ -6,10 +6,6 @@ import json
 
 import execjs #pip install PyExecJS
 
-import exc
-
-import pprint
-
 import re
 from py_mini_racer import py_mini_racer
 
@@ -94,8 +90,5 @@ if __name__ == '__main__':
     data = {"note_id": "64e3217e000000001701b062", "content": "很美丽的地方", "at_users": []}
     # xs = GetXs(cookie, api, data)
     # print(json.dumps(xs, indent=4))
-
-    
-
 
     search("长相思",web_session,a1)
