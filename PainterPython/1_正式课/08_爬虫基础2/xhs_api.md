@@ -1,6 +1,11 @@
 ## 小红书爬虫接口
 
 
+
+现有库学习：https://github.com/NanmiCoder/MediaCrawler
+
+
+
 ## 搜索
 
 - authority: https://edith.xiaohongshu.com
