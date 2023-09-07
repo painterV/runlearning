@@ -1,0 +1,6 @@
+pandas
+scrapy
+bs4
+PyExecJS
+exc
+py_mini_racer
