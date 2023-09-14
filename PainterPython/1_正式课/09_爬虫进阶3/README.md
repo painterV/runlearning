@@ -4,3 +4,7 @@
 
 https://movie.douban.com/top250
 
+
+## 更多内容请查看
+
+[自动获取cookie](./get_cookie_automated.md)

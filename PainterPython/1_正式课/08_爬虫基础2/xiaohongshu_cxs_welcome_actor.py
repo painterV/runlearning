@@ -61,7 +61,7 @@ def GetXs( cookie, api, data):
     return result
 	
 # 发送搜索请求
-def search(api, keyword):
+def search(keyword):
     api = '/api/sns/web/v1/search/notes'
     data={
         "keyword": keyword,
@@ -150,8 +150,8 @@ def get_comments(note_id):
 def parse_note_comment():
     pass
 
-def parse_search_result():
-    response_text = search("檀健次")
+def parse_search_result(keyword):
+    response_text = search(keyword)
 
     posts = []
     comments = []
