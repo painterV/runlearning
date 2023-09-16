@@ -3,20 +3,21 @@ import pandas as pd
 import json
 #pip install PyExecJS
 import execjs 
+import time
 import re
 import random
 from urllib.parse import urlencode
 # cookie需要在网页登录小红书账号后打开开发者模式获取，相当于用户的登录信息
 # 注意1：cookie会过期，过期后需要重新登陆获取。
 # 注意2: 不要频繁访问，如果使用自己个人的cookie，频繁访问可能会被封号
+# 这里要填入个人的cookie（另外注意不要把自己的cookie传给别人）
 
 
-search_file = "_搜索结果_第一页.csv"
-comment_file = "_评论结果_一级.csv"
-note_detail_file = "_笔记详情.csv"
+search_file = "xhs_search.csv"
+comment_file = "xhs_comment.csv"
+note_detail_file = "xhs_note.csv"
 
-cookie = "a1=188d903a6ebsycvs1m7p51d1p35280ti6l5nfbzno30000384502; webId=5e66a87d89240eb9783c68d554e87b58; gid=yYYfj8q0iiKyyYYfj8q0K1DudDMvShMy6WU22IlyfyUq2Iq8JY893i888qY428J8yf04Yqdf; gid.sign=t39uBFOVkroHc3CfHLl4FKLUdf0=; customerClientId=187675897385246; abRequestId=5e66a87d89240eb9783c68d554e87b58; x-user-id-creator.xiaohongshu.com=5655aa2df53ee04a5d81a8ce; amp_6e403e=bHnPVddE_7yjogiSt2fVCj...1h90njmb0.1h90njmb0.0.5.5; ajs_user_id=KuV02fSqKPVuBUWqYb9110EqWsu1; ajs_anonymous_id=b454a71c-9d94-4c76-942b-d67184f05749; webBuild=3.8.1; customerBeakerSessionId=f785f8e96755881ea9223ada0274255fbaaad760gAJ9cQAoWBAAAABjdXN0b21lclVzZXJUeXBlcQFLAlgOAAAAX2NyZWF0aW9uX3RpbWVxAkdB2UAc8CP3z1gJAAAAYXV0aFRva2VucQNYQQAAADExMTdkOWIwMjAxYTQwZmViM2ViYTFiYjA3ZGNiZDZiLTcxM2ZkNDQwZjNhMTRmMmM5MzIyMzhlNDI3MmQ3ODQ1cQRYAwAAAF9pZHEFWCAAAAAzMmNkOGFhNTYzMTM0NzY0ODc1ZmNlNTI4OTcwYjBjOXEGWA4AAABfYWNjZXNzZWRfdGltZXEHR0HZQBzwI/fPWAYAAAB1c2VySWRxCFgYAAAANjNkZjQ4Y2EyZmVjNjQwMDAxODM3MTNlcQlYAwAAAHNpZHEKWBgAAAA2NTAwNzNjMDY0MDAwMDAwMDAwMDAwMDRxC3Uu; customer-sso-sid=650073c06400000000000004; access-token-creator.xiaohongshu.com=customer.ares.AT-1672a0af2e5e41e7a00be885c96e6257-b3a0d16a02ea400d9f822632b37205e8; galaxy_creator_session_id=IygdSUGNIrIssYFB3zNJoYdUmVZz45OVrsmt; galaxy.creator.beaker.session.id=1694528449282009426735; xsecappid=xhs-pc-web; websectiga=f47eda31ec99545da40c2f731f0630efd2b0959e1dd10d5fedac3dce0bd1e04d; sec_poison_id=72611b0a-f899-44f9-aa25-7caafe2c31c7; web_session=0400695d2a2e627ff89874d236374b78992b4c"
-
+cookie = "" ###!!!!这里要填入个人的cookie（另外注意不要把自己的cookie传给别人）
 headers = {
     # "accept":"application/json,text/plain, */*",
     # "cache-control":"no-cache",
@@ -75,7 +76,6 @@ def GetXs(cookie, api, data):
         return ""
 
     result = ctx.call("get_xs", api, data, a1)
-    print(result)
     return result
 
 def update_headers(api, data):
@@ -122,6 +122,9 @@ def search(keyword):
         return response.json()
 
 def get_content(note_id):
+    '''
+    http post response: {"code":0,"success":true,"msg":"成功","data":{"cursor_score":"","items":[{"model_type":"note","note_card":{"type":"normal","title":"碎片化时间记忆更深刻","time":1694733572000,"last_update_time":1694733573000,"note_id":"65039504000000001303d03a","user":{"user_id":"5a3caffc11be101baff9ac7b","nickname":"远远","avatar":"https://sns-avatar-qc.xhscdn.com/avatar/6149acff8f3e18ef770d1f1c.jpg"},"interact_info":{"followed":false,"relation":"none","liked":false,"liked_count":"4","collected":false,"collected_count":"1","comment_count":"0","share_count":"0"},"image_list":[{"info_list":[{"image_scene":"CRD_PRV_WEBP","url":"http://sns-webpic-qc.xhscdn.com/202309150840/5e7589e38b3626f18e4cca6887b273ac/1040g00830p165tes42004a0dprnvpb3rapr1h18!nd_whgt34_webp_prv_1"},{"image_scene":"CRD_WM_WEBP","url":"http://sns-webpic-qc.xhscdn.com/202309150840/760d25c833b29233591d6c7ccf360340/1040g00830p165tes42004a0dprnvpb3rapr1h18!nd_whgt34_webp_wm_1"}],"file_id":"","height":1920,"width":1440,"url":"","trace_id":""}],"tag_list":[{"id":"5d6fc1f3000000000101f6b3","name":"记忆碎片","type":"topic"},{"name":"碎片时间","type":"topic","id":"5cabef29000000000e01779c"},{"id":"5dd10a460000000001008259","name":"日语N1","type":"topic"}],"at_user_list":[],"ip_location":"日本","share_info":{"un_share":false},"desc":"xxxx"},"id":"65039504000000001303d03a"}],"current_time":1694738433956}}
+    '''
     api = "/api/sns/web/v1/feed" # post
     api_url = 'https://edith.xiaohongshu.com' + api
     data={
@@ -213,12 +216,11 @@ def parse_note_comment(note_id):
     if len(note_comments) > 0:
         comment_cols = ["comment_id", "note_id", "comment", "create_time","user_id", "nickname", "image", "ip_location", "like_count","status", "sub_comment_count", "sub_comment_cursor"]
         comment_df = pd.DataFrame(note_comments, columns=comment_cols)
-        comment_df.to_csv(note_id + comment_file, index=False)
+        comment_df.to_csv(comment_file, index=False, mode='a+')
     else:
         print('len of comments is 0, please check')
 
 def parse_search_result(keyword):
-    search_file = keyword + keyword
     response_text = search(keyword)
 
     posts = []
@@ -227,8 +229,8 @@ def parse_search_result(keyword):
         data = response_text["data"]
 
         for item in data["items"]:
-            pid = item.get("id", "")
-            nids.append(pid)
+            note_id = item.get("id", "")
+            nids.append(note_id)
             model_type = item["model_type"]
             if "note_card" in item:
                 note_card = item["note_card"]
@@ -238,28 +240,58 @@ def parse_search_result(keyword):
                 uname = user["nick_name"]
                 avatar = user["avatar"]
                 iti = note_card["interact_info"]
-
                 likes = iti["liked_count"]
-
                 cover = note_card["cover"]["url"]
 
-                field = [pid, model_type, title, uid, uname, avatar, likes, cover]
-
-                ## 爬取该贴的内容
-                content = get_content(pid)
-                posts.append(field.extend(content))
-    
-    cols = ["post_id", "model_type", "title", "user_id", "user_name", "user_avatar", "likes", "cover"]
-    content_cols = [""]
-    cols.extend(content_cols)
+                field = [keyword, len(posts) + 1, note_id]
+                posts.append(field)
+                if len(posts) >= 3:
+                    break
+    cols = ['keyword', 'rank', 'note_id']
     df = pd.DataFrame(posts, columns=cols)
-    df.to_csv(search_file, index=False)
+    df.to_csv(search_file, index=False, mode='a+')
     return nids
 
 
 def parse_note_detail(note_id):
+    '''
+    {   "code":0,
+        "success":true,
+        "msg":"成功",
+        "data": {
+            "cursor_score":"",
+            "items":[
+                {
+                    "model_type":"note",
+                    "note_card":
+                        {
+                            "type":"normal",
+                            "title":"碎片化时间记忆更深刻",
+                            "time":1694733572000,
+                            "last_update_time":1694733573000,
+                            "note_id":"65039504000000001303d03a",
+                            "user":
+                                {
+                                    "user_id":"5a3caffc11be101baff9ac7b",
+                                    "nickname":"远远",
+                                    "avatar":"https://sns-avatar-qc.xhscdn.com/avatar/6149acff8f3e18ef770d1f1c.jpg"
+                                },
+                            "interact_info":
+                                {
+                                    "followed":false,
+                                    "relation":"none",
+                                    "liked":false,
+                                    "liked_count":"4",
+                                    "collected":false,
+                                    "collected_count":"1",
+                                    "comment_count":"0",
+                                    "share_count":"0"
+                                },
+                            "image_list":
+                                [{
+                                    "info_list":[{"image_scene":"CRD_PRV_WEBP","url":"http://sns-webpic-qc.xhscdn.com/202309150840/5e7589e38b3626f18e4cca6887b273ac/1040g00830p165tes42004a0dprnvpb3rapr1h18!nd_whgt34_webp_prv_1"},{"image_scene":"CRD_WM_WEBP","url":"http://sns-webpic-qc.xhscdn.com/202309150840/760d25c833b29233591d6c7ccf360340/1040g00830p165tes42004a0dprnvpb3rapr1h18!nd_whgt34_webp_wm_1"}],"file_id":"","height":1920,"width":1440,"url":"","trace_id":""}],"tag_list":[{"id":"5d6fc1f3000000000101f6b3","name":"记忆碎片","type":"topic"},{"name":"碎片时间","type":"topic","id":"5cabef29000000000e01779c"},{"id":"5dd10a460000000001008259","name":"日语N1","type":"topic"}],"at_user_list":[],"ip_location":"日本","share_info":{"un_share":false},"desc":"xxxx"},"id":"65039504000000001303d03a"}],"current_time":1694738433956}}
+    '''
     res = get_content(note_id)
-
     if res is None:
         return [], [], []
     # res的keys: code, msg, data, success
@@ -272,22 +304,26 @@ def parse_note_detail(note_id):
 
     title = note_card["title"]
     desc = note_card["desc"]
+    user_info = note_card.get('user', {})
+    user_id = user_info.get('user_id', '')
+    nickname = user_info.get('nickname', '')
+    avatar = user_info.get('avatar', '')
     image_list = []
     for image in note_card["image_list"]:
         img_file_id = image["file_id"]
         img_url = image["url"]
         image_list.append(';'.join([img_file_id, img_url]))
-    iti = note_card["interact_info"]
+    iti = note_card.get('interact_info', {})
     likes = iti["liked_count"]
-    comment_count = iti["comment_count"]
-    collected_count = iti["collected_count"]
-    share_count = iti["share_count"]
-    ip_loc = note_card["ip_location"]
+    comment_count = iti.get('comment_count', '0')
+    collected_count = iti.get('collected_count', '0')
+    share_count = iti.get('share_count', '0')
+    ip_loc = note_card.get('ip_location', '')
     tags = []
     for tag in note_card["tag_list"]:
         tags.append(tag["name"])
     pub_time = note_card["time"]
-    note_content = [user_id, nickname, avatar, title, desc, likes, comment_count, collected_count, share_count, ip_loc, pub_time]
+    note_content = [note_id, model_type, user_id, nickname, avatar, title, desc, likes, comment_count, collected_count, share_count, ip_loc, pub_time]
     return note_content, image_list, tags
 
 def test_get_note_by_id():
@@ -304,7 +340,7 @@ def test_get_note_by_id():
     item = note_content + [' '.join(image_list), ' '.join(tags)]
     note_content_list.append(item)
     content_df = pd.DataFrame(note_content_list, columns=content_cols)
-    content_df.to_csv(note_id + note_detail_file, index=False)
+    content_df.to_csv(note_detail_file, index=False)
 
 
 def main():
@@ -320,25 +356,32 @@ def main():
         # 笔记标签
         # 笔记图片列表
         # 笔记交互信息（点赞，评论，分享）
-    content_cols = ["title", "desc", "likes", "comment_count", "collected_count", "share_count", "ip_loc", "pub_time", "pics", "tags"]
-    
     note_content_list = []
     for note_id in note_id_list:
+        time.sleep(1)
         note_content, image_list, tags = parse_note_detail(note_id)
         item = note_content + [' '.join(image_list), ' '.join(tags)]
         note_content_list.append(item)
-    content_df = pd.DataFrame(note_content_list, columns=content_cols)
-    content_df.to_csv(note_id + note_detail_file, index=False)
+        if len(note_content_list) >= 3:
+            break
+    content_cols = ["title", "desc", "likes", "comment_count", "collected_count", "share_count", "ip_loc", "pub_time", "pics", "tags"]  
+    cols = ["note_id", "model_type", "user_id", "nickname", "avatar"] + content_cols
+    content_df = pd.DataFrame(note_content_list, columns=cols)
+    content_df.to_csv(note_detail_file, index=False, mode='a+')
 
     # 遍历上述note_id，爬取笔记评论内容
+    '''
     for note_id in note_id_list:
+        time.sleep(1)
         parse_note_comment(note_id)
+    '''
+
 
 def test_get_note_comment_by_id():
     note_id = "64eff23d000000001e00e986"
     comments = parse_note_comment(note_id)
 
 if __name__ == "__main__":
-    # main()
-    test_get_note_comment_by_id()
+    main()
+    # test_get_note_comment_by_id()
     # test_get_note_by_id()

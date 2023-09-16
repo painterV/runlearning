@@ -1,4 +1,4 @@
-# Scrapy settings for douban project
+# Scrapy settings for douban_top250 project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "douban"
+BOT_NAME = "douban_top250"
 
-SPIDER_MODULES = ["douban.spiders"]
-NEWSPIDER_MODULE = "douban.spiders"
+SPIDER_MODULES = ["douban_top250.spiders"]
+NEWSPIDER_MODULE = "douban_top250.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "douban (+http://www.yourdomain.com)"
+#USER_AGENT = "douban_top250 (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -41,25 +41,17 @@ ROBOTSTXT_OBEY = True
 #    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 #    "Accept-Language": "en",
 #}
-DEFAULT_REQUEST_HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Mobile Safari/537.36',
-    'Host': 'top.baidu.com',
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Referer': 'https://top.baidu.com/board?tab=novel',
-}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "douban.middlewares.DoubanSpiderMiddleware": 543,
+#    "douban_top250.middlewares.DoubanTop250SpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    "douban.middlewares.DoubanDownloaderMiddleware": 543,
+#    "douban_top250.middlewares.DoubanTop250DownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
@@ -71,8 +63,11 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "douban.pipelines.DoubanPipeline": 300,
+#    "douban_top250.pipelines.DoubanTop250Pipeline": 300,
 #}
+ITEM_PIPELINES = {
+    'douban_top250.pipelines.PostgresPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -99,3 +94,11 @@ DEFAULT_REQUEST_HEADERS = {
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+
+# Configuring database
+POSTGRES_DB = 'postgres'
+POSTGRES_USER = 'postgres'
+POSTGRES_PASSWORD = '123456'
+POSTGRES_HOST = 'localhost'
+POSTGRES_PORT = '5432'

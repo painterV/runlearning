@@ -88,3 +88,24 @@ python是今年来非常火爆的高级程序语言，尤其在爬虫方面应�
 - 浏览器开发者工具模式的使用操作。
 
 ## 什么是爬虫
+
+## HTTP网络请求以及分类
+
+[http基础知识](./basic_http.md)
+
+## HTML简介
+
+[html基础知识](./basic_html.md)
+
+
+## 静态网页爬取API方法
+
+[api基础知识](./api_basic.md)
+
+API的三个重要组成部分
+
+## 静态网页爬取网页解析方法
+
+需要借助网页解析库或者工具
+
+- BeautifulSoup就是常用的解析网页的库之一，详细使用参考[BeautifulSoup使用入门](./learn_beautifulSoup.md)
